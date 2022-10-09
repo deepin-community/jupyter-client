@@ -1,0 +1,261 @@
+jupyter-client (7.0.6-2) unstable; urgency=medium
+
+  * Add breaks against ipykernel < 6, nbconvert < 6, jupyter-console < 6.4.0-3
+
+ -- Gordon Ball <gordon@chronitis.net>  Fri, 12 Nov 2021 18:52:03 +0000
+
+jupyter-client (7.0.6-1) unstable; urgency=medium
+
+  * d/watch: allow v prefix for tags
+  * New upstream version 7.0.6
+  * Rebase patches
+  * d/rules: update CHANGELOG location
+  * d/control: add b-d on nest-asyncio, tornado
+  * d/tests/control: requires ipykernel >= 6 for test
+  * d/control: Standards-Version: 4.6.0
+
+ -- Gordon Ball <gordon@chronitis.net>  Sat, 06 Nov 2021 19:27:24 +0000
+
+jupyter-client (6.1.12-1) unstable; urgency=medium
+
+  [ Julien Puydt ]
+  * Fix d/watch.
+
+  [ Gordon Ball ]
+  * New upstream version 6.1.12
+  * Rebase patches, drop deprecated syntax patch (applied upstream)
+
+ -- Gordon Ball <gordon@chronitis.net>  Sun, 15 Aug 2021 18:34:37 +0000
+
+jupyter-client (6.1.11-2) unstable; urgency=medium
+
+  [ Julien Puydt ]
+  * Bump standards-version to 4.5.1.
+  * Bump dh compat to 13.
+
+  [ Gordon Ball ]
+  * Patch deprecated syntax causing a SyntaxWarning on install
+
+ -- Gordon Ball <gordon@chronitis.net>  Mon, 01 Feb 2021 18:39:06 +0000
+
+jupyter-client (6.1.11-1) unstable; urgency=medium
+
+  [ Ondřej Nový ]
+  * d/control: Update Maintainer field with new Debian Python Team
+    contact address.
+  * d/control: Update Vcs-* fields with new Debian Python Team Salsa
+    layout.
+
+  [ Gordon Ball ]
+  * d/watch: remove unnecessary filenamemangle
+  * New upstream version 6.1.11
+
+ -- Gordon Ball <gordon@chronitis.net>  Sun, 10 Jan 2021 17:34:03 +0000
+
+jupyter-client (6.1.6-1) unstable; urgency=medium
+
+  * New upstream version 6.1.6
+  * Patch out (test) dependency on async_generator - this is a backport only
+    needed for python 3.5, which is not targeted here.
+  * Add build-depends, test-depends on python3-pytest-asyncio
+
+ -- Gordon Ball <gordon@chronitis.net>  Wed, 15 Jul 2020 20:12:43 +0000
+
+jupyter-client (6.1.5-2) unstable; urgency=medium
+
+  * Allow stderr in the autopkgtest
+
+ -- Gordon Ball <gordon@chronitis.net>  Mon, 13 Jul 2020 17:29:06 +0000
+
+jupyter-client (6.1.5-1) unstable; urgency=medium
+
+  * New upstream version 6.1.5
+
+ -- Gordon Ball <gordon@chronitis.net>  Sun, 05 Jul 2020 10:52:33 +0000
+
+jupyter-client (6.1.3-1) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository,
+    Repository-Browse.
+
+  [ Gordon Ball ]
+  * New upstream version 6.1.3
+
+ -- Gordon Ball <gordon@chronitis.net>  Fri, 24 Apr 2020 19:41:43 +0000
+
+jupyter-client (6.1.2-1) unstable; urgency=medium
+
+  * New upstream version 6.1.2
+
+ -- Gordon Ball <gordon@chronitis.net>  Wed, 01 Apr 2020 18:00:34 +0000
+
+jupyter-client (6.1.0-1) unstable; urgency=medium
+
+  * Run the test suite as an autopkgtest
+  * New upstream version 6.1.0
+  * Rebase patches
+
+ -- Gordon Ball <gordon@chronitis.net>  Fri, 20 Mar 2020 07:56:28 +0000
+
+jupyter-client (6.0.0-1) unstable; urgency=medium
+
+  [ Julien Puydt ]
+  * New upstream release 6.0.0.
+  * Bump std-vers to 4.5.0.
+
+  [ Gordon Ball ]
+  * Python 2.7 support was dropped upstream by this version, so drop package
+    python-jupyter-client accordingly (Closes: #936772)
+
+  [ Julien Puydt ]
+  * Add patch to fix a syntax warning (Closes: #948355).
+
+ -- Julien Puydt <jpuydt@debian.org>  Wed, 04 Mar 2020 11:05:00 +0100
+
+jupyter-client (5.3.4-1) unstable; urgency=medium
+
+  [ Ondřej Nový ]
+  * Bump Standards-Version to 4.4.1.
+
+  [ Gordon Ball ]
+  * New upstream version 5.3.4
+  * Version runtime dependency on jupyter_core, as per setup.py
+
+ -- Gordon Ball <gordon@chronitis.net>  Wed, 13 Nov 2019 16:21:58 +0000
+
+jupyter-client (5.3.3-1) unstable; urgency=medium
+
+  * New upstream version 5.3.3
+  * Update debhelper compat level to 12
+
+ -- Gordon Ball <gordon@chronitis.net>  Wed, 09 Oct 2019 18:08:40 +0000
+
+jupyter-client (5.3.1-1) unstable; urgency=medium
+
+  [ Ondřej Nový ]
+  * Use debhelper-compat instead of debian/compat.
+
+  [ Gordon Ball ]
+  * New upstream version
+
+ -- Gordon Ball <gordon@chronitis.net>  Wed, 25 Sep 2019 19:54:35 +0000
+
+jupyter-client (5.2.4-1) unstable; urgency=medium
+
+  [ Ondřej Nový ]
+  * d/control: Remove ancient X-Python-Version field
+  * d/control: Remove ancient X-Python3-Version field
+  * Use 'python3 -m sphinx' instead of sphinx-build for building docs
+
+  [ Gordon Ball ]
+  * New upstream version 5.2.4
+  * Update to Standards-Version 4.3.0
+
+  [ Julien Puydt ]
+  * Bump dh compat to 11.
+  * Bump std-ver to 4.4.0.
+
+ -- Julien Puydt <jpuydt@debian.org>  Tue, 09 Jul 2019 18:40:15 +0200
+
+jupyter-client (5.2.3-1) unstable; urgency=medium
+
+  [ Gordon Ball ]
+  * Delete d/.git-dpm; git-dpm tracking information is out of date and the
+    repository has already been converted to patches-unapplied.
+  * New upstream version 5.2.3
+  * Set Rules-Requires-Root: no
+
+  [ Julien Puydt ]
+  * Bump std-ver to 4.1.4.
+  * Use my debian.org mail address.
+
+ -- Julien Puydt <jpuydt@debian.org>  Wed, 02 May 2018 21:01:34 +0200
+
+jupyter-client (5.2.2-1) unstable; urgency=medium
+
+  [ Ondřej Nový ]
+  * d/control: Set Vcs-* to salsa.debian.org
+  * d/copyright: Fix Format URL to correct one
+
+  [ Julien Puydt ]
+  * New upstream release.
+
+ -- Julien Puydt <julien.puydt@laposte.net>  Mon, 19 Feb 2018 23:55:41 +0100
+
+jupyter-client (5.2.0-1) unstable; urgency=medium
+
+  [ Julien Puydt ]
+  * Put myself in uploaders and the team as maintainer like my other packages.
+  * Refresh d/copyright.
+
+  [ Gordon Ball ]
+  * New upstream release.
+  * Retire patch 0001-use-setuptools-for-everything; upstream now
+    unconditionally imports setuptools.
+  * Update to Standards-Version: 4.1.2
+  * Install the upstream changelog.
+  * Patch out use of sphinxcontrib_github_alt during documentation build.
+  * Use python3 sphinx to build documentation.
+  * Add a manpage for jupyter-kernel.
+
+ -- Gordon Ball <gordon@chronitis.net>  Sat, 23 Dec 2017 11:39:13 +0000
+
+jupyter-client (5.1.0-1) unstable; urgency=medium
+
+  [ Julien Puydt ]
+  * New upstream release.
+  * Added a manpage for jupyter-run (help2man and elbow grease).
+  * Bump d/watch version to 4.
+
+  [ Gordon Ball ]
+  * New upstream release
+  * Updated to Standards-Version 4.1.0
+  * Add jupyter-run to package descriptions in d/control
+  * Updated debhelper compat level to 10
+  * Add ${sphinxdoc:Built-Using} to documentation package
+  * Add dependency on jupyter-core to jupyter-client package, to ensure
+    that commands like kernelspec can be invoked as jupyter kernelspec
+  * Add Testsuite: autopkgtest-pkg-python (only the autodep8 package-
+    can-be-imported test is performed)
+  * Add myself to uploaders
+
+ -- Julien Puydt <julien.puydt@laposte.net>  Mon, 04 Sep 2017 02:31:30 +0200
+
+jupyter-client (4.4.0-2) unstable; urgency=medium
+
+  * Team upload.
+  * Upload to unstable.
+
+ -- Tobias Hansen <thansen@debian.org>  Wed, 02 Nov 2016 11:54:37 +0000
+
+jupyter-client (4.4.0-1) experimental; urgency=medium
+
+  * New upstream version.
+  * Added sphinx' rtd theme to the build-deps.
+
+ -- Julien Puydt <julien.puydt@laposte.net>  Mon, 05 Sep 2016 10:48:33 +0200
+
+jupyter-client (4.3.0-1) experimental; urgency=medium
+
+  * Bumped standards-version up.
+  * New upstream version.
+
+ -- Julien Puydt <julien.puydt@laposte.net>  Sun, 10 Jul 2016 13:49:13 +0200
+
+jupyter-client (4.2.2-1) experimental; urgency=medium
+
+  Team upload
+
+  [ Julien Puydt ]
+  * Initial release. (Closes: #800903)
+
+  [ Ondřej Nový ]
+  * Fixed VCS URL (https)
+
+  [ Julien Cristau ]
+  * Use dh_install instead of PYBUILD_NAME
+  * Update to 4.2.2
+  * Add DPMT to Uploaders.
+
+ -- Julien Cristau <jcristau@debian.org>  Fri, 08 Apr 2016 12:44:27 +0200

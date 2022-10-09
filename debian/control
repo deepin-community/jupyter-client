@@ -1,0 +1,70 @@
+Source: jupyter-client
+Maintainer: Debian Python Team <team+python@tracker.debian.org>
+Uploaders: Julien Puydt <jpuydt@debian.org>,
+           Gordon Ball <gordon@chronitis.net>
+Section: python
+Priority: optional
+Standards-Version: 4.6.0
+Homepage: https://github.com/jupyter/jupyter_client
+Build-Depends: debhelper-compat (= 13),
+               dh-python,
+               ipython3,
+               python3-all,
+               python3-pytest,
+               python3-pytest-asyncio,
+               python3-nest-asyncio,
+               python3-setuptools,
+               python3-sphinx,
+               python3-sphinx-rtd-theme,
+               python3-tornado,
+               python3-traitlets,
+               python3-zmq,
+Vcs-Git: https://salsa.debian.org/python-team/packages/jupyter-client.git
+Vcs-Browser: https://salsa.debian.org/python-team/packages/jupyter-client
+Testsuite: autopkgtest-pkg-python
+Rules-Requires-Root: no
+
+Package: python3-jupyter-client
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}, python3-jupyter-core (>= 4.6.0)
+Breaks: python3-ipykernel (<< 6),
+        python3-jupyter-console (<< 6.4.0-3~),
+        python3-nbconvert (<< 6),
+Description: Jupyter protocol client APIs (Python 3)
+ This software component contains the reference implementation
+ of the Jupyter protocol. It also provides client and kernel
+ management APIs to work with kernels, the "jupyter kernelspec"
+ entry point to install kernelspecs for use with Jupyter frontends
+ and the "jupyter run" command to execute a script on a jupyter kernel.
+ .
+ This package installs the library for Python 3.
+
+Package: jupyter-client
+Architecture: all
+Section: utils
+Depends: python3-jupyter-client (= ${binary:Version}),
+         ${misc:Depends},
+         ${python3:Depends},
+         jupyter-core
+Description: Jupyter protocol client APIs (tools)
+ This software component contains the reference implementation
+ of the Jupyter protocol. It also provides client and kernel
+ management APIs to work with kernels, the "jupyter kernelspec"
+ entry point to install kernelspecs for use with Jupyter frontends
+ and the "jupyter run" command to execute a script on a jupyter kernel.
+ .
+ This package contains the jupyter-kernelspec and jupyter-run tools.
+
+Package: python-jupyter-client-doc
+Architecture: all
+Section: doc
+Depends: ${misc:Depends}, ${sphinxdoc:Depends}
+Built-Using: ${sphinxdoc:Built-Using}
+Description: Jupyter protocol client APIs (documentation)
+ This software component contains the reference implementation
+ of the Jupyter protocol. It also provides client and kernel
+ management APIs to work with kernels, the "jupyter kernelspec"
+ entry point to install kernelspecs for use with Jupyter frontends
+ and the "jupyter run" command to execute a script on a jupyter kernel.
+ .
+ This package contains documentation.

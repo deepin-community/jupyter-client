@@ -1,0 +1,225 @@
+.TH JUPYTER-RUN "1" "April 2017" "jupyter-run 5.0.1" "User Commands"
+.SH NAME
+jupyter-run \- Helper to run jupyter apps from the command line
+.SH DESCRIPTION
+Run Jupyter kernel code.
+.SH OPTIONS
+Arguments that take values are actually convenience aliases to full
+Configurables, whose aliases are listed on the help line. For more information
+on full configurables, see '\-\-help\-all'.
+.PP
+\fB\-\-generate\-config\fR
+.IP
+generate default config file
+.PP
+\fB\-\-debug\fR
+.IP
+set log level to logging.DEBUG (maximize logging output)
+.PP
+\fB\-\-no\-confirm\-exit\fR
+.IP
+Don't prompt the user when exiting. This will terminate the kernel
+if it is owned by the frontend, and leave it alive if it is external.
+This can also be set in the config file by setting
+`c.JupyterConsoleApp.confirm_exit`.
+.PP
+\fB\-\-confirm\-exit\fR
+.IP
+Set to display confirmation dialog on exit. You can always use 'exit' or
+\&'quit', to force a direct exit without any confirmation. This can also
+be set in the config file by setting
+`c.JupyterConsoleApp.confirm_exit`.
+.PP
+\fB\-y\fR
+.IP
+Answer yes to any questions instead of prompting.
+.PP
+\fB\-\-existing\fR
+.IP
+Connect to an existing kernel. If no argument specified, guess most recent
+.PP
+\fB\-\-transport=\fR<CaselessStrEnum> (JupyterConsoleApp.transport)
+.IP
+Default: 'tcp'
+Choices: ['tcp', 'ipc']
+.PP
+\fB\-\-hb=\fR<Int> (JupyterConsoleApp.hb_port)
+.IP
+Default: 0
+set the heartbeat port [default: random]
+.PP
+\fB\-\-ssh=\fR<Unicode> (JupyterConsoleApp.sshserver)
+.IP
+Default: ''
+The SSH server to use to connect to the kernel.
+.PP
+\fB\-\-ip=\fR<Unicode> (JupyterConsoleApp.ip)
+.IP
+Default: ''
+Set the kernel's IP address [default localhost]. If the IP address is
+something other than localhost, then Consoles on other machines will be able
+to connect to the Kernel, so be careful!
+.PP
+\fB\-\-kernel=\fR<Unicode> (JupyterConsoleApp.kernel_name)
+.IP
+Default: 'python'
+The name of the default kernel to start.
+.PP
+\fB\-\-log\-level=\fR<Enum> (Application.log_level)
+.IP
+Default: 30
+Choices: (0, 10, 20, 30, 40, 50, 'DEBUG', 'INFO', 'WARN', 'ERROR', 'CRITICAL')
+Set the log level by value or name.
+.PP
+\fB\-\-stdin=\fR<Int> (JupyterConsoleApp.stdin_port)
+.IP
+Default: 0
+set the stdin (ROUTER) port [default: random]
+.PP
+\fB\-\-config=\fR<Unicode> (JupyterApp.config_file)
+.IP
+Default: ''
+Full path of a config file.
+.PP
+\fB\-\-iopub=\fR<Int> (JupyterConsoleApp.iopub_port)
+.IP
+Default: 0
+set the iopub (PUB) port [default: random]
+.PP
+\fB\-\-shell=\fR<Int> (JupyterConsoleApp.shell_port)
+.IP
+Default: 0
+set the shell (ROUTER) port [default: random]
+.PP
+\fB\-f\fR <Unicode> (JupyterConsoleApp.connection_file)
+.IP
+Default: ''
+JSON file in which to store connection info [default: kernel\-<pid>.json]
+This file will contain the IP, ports, and authentication key needed to
+connect clients to this kernel. By default, this file will be created in the
+security dir of the current profile, but can be specified by absolute path.
+.PP
+\fB\-\-existing=\fR<CUnicode> (JupyterConsoleApp.existing)
+.IP
+Default: ''
+Connect to an already running kernel
+.SH CLASS PARAMETERS
+Parameters are set from command\-line arguments of the form:
+`\-\-Class.trait=value`. This line is evaluated in Python, so simple expressions
+are allowed, e.g.:: `\-\-C.a='range(3)'` For setting C.a=[0,1,2].
+.SH RUNAPP OPTIONS
+\fB\-\-RunApp\fR.answer_yes=<Bool>
+.IP
+Default: False
+Answer yes to any prompts.
+.PP
+\fB\-\-RunApp\fR.config_file=<Unicode>
+.IP
+Default: ''
+Full path of a config file.
+.PP
+\fB\-\-RunApp\fR.config_file_name=<Unicode>
+.IP
+Default: ''
+Specify a config file to load.
+.PP
+\fB\-\-RunApp\fR.confirm_exit=<CBool>
+.IP
+Default: True
+Set to display confirmation dialog on exit. You can always use 'exit' or
+\&'quit', to force a direct exit without any confirmation.
+.PP
+\fB\-\-RunApp\fR.connection_file=<Unicode>
+.IP
+Default: ''
+JSON file in which to store connection info [default: kernel\-<pid>.json]
+This file will contain the IP, ports, and authentication key needed to
+connect clients to this kernel. By default, this file will be created in the
+security dir of the current profile, but can be specified by absolute path.
+.PP
+\fB\-\-RunApp\fR.control_port=<Int>
+.IP
+Default: 0
+set the control (ROUTER) port [default: random]
+.PP
+\fB\-\-RunApp\fR.existing=<CUnicode>
+.IP
+Default: ''
+Connect to an already running kernel
+.PP
+\fB\-\-RunApp\fR.generate_config=<Bool>
+.IP
+Default: False
+Generate default config file.
+.PP
+\fB\-\-RunApp\fR.hb_port=<Int>
+.IP
+Default: 0
+set the heartbeat port [default: random]
+.PP
+\fB\-\-RunApp\fR.iopub_port=<Int>
+.IP
+Default: 0
+set the iopub (PUB) port [default: random]
+.PP
+\fB\-\-RunApp\fR.ip=<Unicode>
+.IP
+Default: ''
+Set the kernel's IP address [default localhost]. If the IP address is
+something other than localhost, then Consoles on other machines will be able
+to connect to the Kernel, so be careful!
+.PP
+\fB\-\-RunApp\fR.kernel_name=<Unicode>
+.IP
+Default: 'python'
+The name of the default kernel to start.
+.PP
+\fB\-\-RunApp\fR.kernel_timeout=<Float>
+.IP
+Default: 60
+Timeout for giving up on a kernel (in seconds).
+On first connect and restart, the console tests whether the kernel is
+running and responsive by sending kernel_info_requests. This sets the
+timeout in seconds for how long the kernel can take before being presumed
+dead.
+.PP
+\fB\-\-RunApp\fR.log_datefmt=<Unicode>
+.IP
+Default: '%Y\-%m\-%d %H:%M:%S'
+The date format used by logging formatters for %(asctime)s
+.PP
+\fB\-\-RunApp\fR.log_format=<Unicode>
+.IP
+Default: '[%(name)s]%(highlevel)s %(message)s'
+The Logging format template
+.PP
+\fB\-\-RunApp\fR.log_level=<Enum>
+.IP
+Default: 30
+Choices: (0, 10, 20, 30, 40, 50, 'DEBUG', 'INFO', 'WARN', 'ERROR', 'CRITICAL')
+Set the log level by value or name.
+.PP
+\fB\-\-RunApp\fR.shell_port=<Int>
+.IP
+Default: 0
+set the shell (ROUTER) port [default: random]
+.PP
+\fB\-\-RunApp\fR.sshkey=<Unicode>
+.IP
+Default: ''
+Path to the ssh key to use for logging in to the ssh server.
+.PP
+\fB\-\-RunApp\fR.sshserver=<Unicode>
+.IP
+Default: ''
+The SSH server to use to connect to the kernel.
+.PP
+\fB\-\-RunApp\fR.stdin_port=<Int>
+.IP
+Default: 0
+set the stdin (ROUTER) port [default: random]
+.PP
+\fB\-\-RunApp\fR.transport=<CaselessStrEnum>
+.IP
+Default: 'tcp'
+Choices: ['tcp', 'ipc']

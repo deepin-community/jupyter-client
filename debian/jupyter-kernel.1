@@ -1,0 +1,22 @@
+.TH JUPYTER-KERNEL 1
+.SH NAME
+jupyter-kernel \- Run a kernel locally in a subprocess
+.SH SYNOPSIS
+.B jupyter kernel <options>
+.SH DESCRIPTION
+jupyter-kernel provides a wrapper to invoke computational kernels known to
+jupyter.
+.SH OPTIONS
+.PP
+\fB\-\-debug\fR
+.IP
+Set log level to logging.DEBUG (maximize logging output)
+.PP
+\fB\-\-kernel=\fRKERNEL
+.IP
+Name of kernel to launch (default: python3)
+.PP
+\fB\-\-ip=\fRIP
+.IP
+IP to listen on. Setting this to other than the default (localhost) will allow
+clients on other hosts to connect.
