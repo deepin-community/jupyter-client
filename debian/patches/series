@@ -1,1 +1,2 @@
-0001-Disable-sphinxcontrib_github_alt.patch
+docs-local-intersphinx.diff
+improve-multiple-test-runs.patch

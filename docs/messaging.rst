@@ -21,7 +21,7 @@ Versioning
 
 The Jupyter message specification is versioned independently of the packages
 that use it.
-The current version of the specification is 5.3.
+The current version of the specification is 5.4.
 
 .. note::
    *New in* and *Changed in* messages in this document refer to versions of the
@@ -73,7 +73,7 @@ kernel has dedicated sockets for the following functions:
    appropriately.
 
 4. **Control**: This channel is identical to Shell, but operates on a separate
-   socket to avoid queueing behind execution requests. The control channel is 
+   socket to avoid queueing behind execution requests. The control channel is
    used for shutdown and restart messages, as well as for debugging messages.
 
    For a smoother user experience, we recommend running the control channel in
@@ -96,26 +96,28 @@ A message is composed of five dictionaries.
 Message Header
 --------------
 
-The message `header` contains information about the message,
+The message ``header`` contains information about the message,
 such as unique identifiers for the originating session and the actual message id,
 the type of message, the version of the Jupyter protocol,
 and the date the message was created.
-In addition, there is a username field, e.g. for the process that generated the message, if applicable.
-This can be useful in collaborative settings where multiple users may be interacting with the same kernel simultaneously,
+In addition, there is a username field, e.g. for the process that generated the
+message, if applicable.
+This can be useful in collaborative settings where multiple users may be
+interacting with the same kernel simultaneously,
 so that frontends can label the various messages in a meaningful way.
 
 .. sourcecode:: python
 
     {
-        'msg_id' : str, # typically UUID, must be unique per message
-        'session' : str, # typically UUID, should be unique per session
-        'username' : str,
+        "msg_id": str,  # typically UUID, must be unique per message
+        "session": str,  # typically UUID, should be unique per session
+        "username": str,
         # ISO 8601 timestamp for when the message is created
-        'date': str,
+        "date": str,
         # All recognized message type strings are listed below.
-        'msg_type' : str,
+        "msg_type": str,
         # the message protocol version
-        'version' : '5.0',
+        "version": "5.0",
     }
 
 .. note::
@@ -172,8 +174,9 @@ such as outputs to a cell.
 Metadata
 --------
 
-The `metadata` dict contains information about the message that is not part of the content.
-This is not often used, but can be an extra location to store information about requests and replies,
+The ``metadata`` dict contains information about the message that is not part of the content.
+This is not often used, but can be an extra location to store information about
+requests and replies,
 such as extensions adding information about request or execution context.
 
 Content
@@ -254,7 +257,8 @@ but does not describe the actual *implementation* at the wire level in zeromq.
 This section describes the protocol that must be implemented by Jupyter kernels and clients
 talking to each other over zeromq.
 
-The reference implementation of the message spec is our :class:`~jupyter_client.session.Session` class.
+The reference implementation of the message spec is our
+:class:`~jupyter_client.session.Session` class.
 
 .. note::
 
@@ -267,15 +271,15 @@ Every message is serialized to a sequence of at least six blobs of bytes:
 .. sourcecode:: python
 
     [
-      b'u-u-i-d',         # zmq identity(ies)
-      b'<IDS|MSG>',       # delimiter
-      b'baddad42',        # HMAC signature
-      b'{header}',        # serialized header dict
-      b'{parent_header}', # serialized parent header dict
-      b'{metadata}',      # serialized metadata dict
-      b'{content}',       # serialized content dict
-      b'\xf0\x9f\x90\xb1' # extra raw data buffer(s)
-      ...
+        b"u-u-i-d",  # zmq identity(ies)
+        b"<IDS|MSG>",  # delimiter
+        b"baddad42",  # HMAC signature
+        b"{header}",  # serialized header dict
+        b"{parent_header}",  # serialized parent header dict
+        b"{metadata}",  # serialized metadata dict
+        b"{content}",  # serialized content dict
+        b"\xf0\x9f\x90\xb1"  # extra raw data buffer(s)
+        # ...
     ]
 
 The front of the message is the ZeroMQ routing prefix,
@@ -300,7 +304,7 @@ By default, the hashing function used for computing these signatures is sha256.
 .. note::
 
     To disable authentication and signature checking,
-    set the `key` field of a connection file to an empty string.
+    set the ``key`` field of a connection file to an empty string.
 
 The signature is the HMAC hex digest of the concatenation of:
 
@@ -372,16 +376,20 @@ Request-Reply
 
 In general, the ROUTER/DEALER sockets follow a request-reply pattern:
 
-The client sends an ``<action>_request`` message (such as ``execute_request``) on its shell (DEALER) socket.
+The client sends an ``<action>_request`` message (such as ``execute_request``)
+on its shell (DEALER) socket.
 The kernel receives that request and immediately publishes a ``status: busy`` message on IOPub.
-The kernel then processes the request and sends the appropriate ``<action>_reply`` message, such as ``execute_reply``.
+The kernel then processes the request and sends the appropriate
+``<action>_reply`` message, such as ``execute_reply``.
 After processing the request and publishing associated IOPub messages, if any,
 the kernel publishes a ``status: idle`` message.
-This idle status message indicates that IOPub messages associated with a given request have all been received.
+This idle status message indicates that IOPub messages associated with a given
+request have all been received.
 
 All reply messages have a ``'status'`` field, which will have one of the following values:
 
-- ``status='ok'``: The request was processed successfully, and the remaining content of the reply is specified in the appropriate section below.
+- ``status='ok'``: The request was processed successfully, and the remaining
+  content of the reply is specified in the appropriate section below.
 - ``status='error'``: The request failed due to an error.
    When status is 'error', the usual content of a successful reply should be omitted,
    instead the following fields should be present::
@@ -395,7 +403,7 @@ All reply messages have a ``'status'`` field, which will have one of the followi
 
 - ``status='abort'``: This is the same as ``status='error'``
   but with no information about the error.
-  No fields should be present other that `status`.
+  No fields should be present other that ``status``.
 
 As a special case, ``execute_reply`` messages (see :ref:`execution_results`)
 have an ``execution_count`` field regardless of their status.
@@ -557,12 +565,12 @@ and are not included in notebook documents.
 .. sourcecode:: python
 
     {
-      "source": "page",
-      # mime-bundle of data to display in the pager.
-      # Must include text/plain.
-      "data": mimebundle,
-      # line offset to start from
-      "start": int,
+        "source": "page",
+        # mime-bundle of data to display in the pager.
+        # Must include text/plain.
+        "data": mimebundle,
+        # line offset to start from
+        "start": int,
     }
 
 **set_next_input**: create a new output
@@ -574,24 +582,24 @@ The main example being ``%load``.
 .. sourcecode:: python
 
     {
-      "source": "set_next_input",
-      # the text contents of the cell to create
-      "text": "some cell content",
-      # If true, replace the current cell in document UIs instead of inserting
-      # a cell. Ignored in console UIs.
-      "replace": bool,
+        "source": "set_next_input",
+        # the text contents of the cell to create
+        "text": "some cell content",
+        # If true, replace the current cell in document UIs instead of inserting
+        # a cell. Ignored in console UIs.
+        "replace": bool,
     }
 
 **edit_magic**: open a file for editing.
 
-Triggered by `%edit`. Only the QtConsole currently supports edit payloads.
+Triggered by ``%edit``. Only the QtConsole currently supports edit payloads.
 
 .. sourcecode:: python
 
     {
-      "source": "edit_magic",
-      "filename": "/path/to/file.py", # the file to edit
-      "line_number": int, # the line number to start with
+        "source": "edit_magic",
+        "filename": "/path/to/file.py",  # the file to edit
+        "line_number": int,  # the line number to start with
     }
 
 **ask_exit**: instruct the frontend to prompt the user for exit
@@ -602,9 +610,9 @@ Only for console frontends.
 .. sourcecode:: python
 
     {
-      "source": "ask_exit",
-      # whether the kernel should be left running, only closing the client
-      "keepkernel": bool,
+        "source": "ask_exit",
+        # whether the kernel should be left running, only closing the client
+        "keepkernel": bool,
     }
 
 
@@ -985,7 +993,7 @@ Message type: ``kernel_info_reply``::
         },
 
         # A banner of information about the kernel,
-        # which may be desplayed in console environments.
+        # which may be displayed in console environments.
         'banner': str,
 
         # A boolean flag which tells if the kernel supports debugging in the notebook.
@@ -1041,9 +1049,18 @@ multiple cases:
   IPythonQt client) to force a kernel restart to get a clean kernel without
   losing client-side state like history or inlined figures.
 
+Implementation recommendation for starting kernels: A restart should optimally
+preserve as many resources outside the kernel as possible (e.g. only restart the
+kernel and its subprocesses and not any parent processes). That is, ideally a
+restart should be "in-place". For local kernels, there is typically no parent
+process so a "hard" restart and an in-place restart are identical whereas for
+remote kernels this is not generally the same. As an example, if a remote kernel
+is run in a container, during an in-place restart the container may be kept
+running and a new kernel process within it would be started.
+
 The client sends a shutdown request to the kernel, and once it receives the
 reply message (which is otherwise empty), it can assume that the kernel has
-completed shutdown safely.  The request is sent on the `control` channel.
+completed shutdown safely.  The request is sent on the ``control`` channel.
 
 Upon their own shutdown, client applications will typically execute a last
 minute sanity check and forcefully terminate any kernel that is still alive, to
@@ -1082,8 +1099,8 @@ Kernel interrupt
 In case a kernel can not catch operating system interrupt signals (e.g. the used
 runtime handles signals and does not allow a user program to define a callback),
 a kernel can choose to be notified using a message instead. For this to work,
-the kernels kernelspec must set `interrupt_mode` to ``message``. An interruption
-will then result in the following message on the `control` channel:
+the kernels kernelspec must set ``interrupt_mode`` to ``message``. An interruption
+will then result in the following message on the ``control`` channel:
 
 Message type: ``interrupt_request``::
 
@@ -1113,22 +1130,32 @@ Message type: ``debug_reply``::
 
     content = {}
 
-The ``content`` dicts of the `debug_request` and `debug_reply` messages respectively follow the specification of the `Request` and `Response` messages from the `Debug Adapter Protocol (DAP) <https://microsoft.github.io/debug-adapter-protocol/>`_ as of version 1.39 or later.
+The ``content`` dicts of the ``debug_request`` and ``debug_reply`` messages respectively follow the
+specification of the ``Request`` and ``Response`` messages from the
+`Debug Adapter Protocol (DAP) <https://microsoft.github.io/debug-adapter-protocol/>`_ as of version 1.39 or later.
 
-Debug requests and replies are sent over the `control` channel to prevent queuing behind execution requests.
+Debug requests and replies are sent over the ``control`` channel to prevent
+queuing behind execution requests.
 
 Additions to the DAP
 ~~~~~~~~~~~~~~~~~~~~
 
 The Jupyter debugger protocol makes several additions to the DAP:
 
-- the `dumpCell` request and response messages
-- the `debugInfo` request and response messages
-- the `inspectVariables` request and response messages
+- the `dumpCell`_ request and response messages
+- the `debugInfo`_ request and response messages
+- the `inspectVariables`_ request and response messages
+- the `richInspectVariables`_ request and response messages
+- the `copyToGlobals`_ request and response messages
 
-In order to support the debugging of notebook cells and of Jupyter consoles, which are not based on source files, we need a message to submit code to the debugger to which breakpoints can be added.
+dumpCell
+########
 
-  Content of the `dumpCell` request::
+In order to support the debugging of notebook cells and of Jupyter consoles,
+which are not based on source files, we need a message to submit code to the
+debugger to which breakpoints can be added.
+
+  Content of the ``dumpCell`` request::
 
      {
          'type' : 'request',
@@ -1138,7 +1165,7 @@ In order to support the debugging of notebook cells and of Jupyter consoles, whi
          }
      }
 
-  Content of the `dumpCell` response::
+  Content of the ``dumpCell`` response::
 
      {
           'type' : 'response',
@@ -1148,16 +1175,22 @@ In order to support the debugging of notebook cells and of Jupyter consoles, whi
           }
      }
 
-In order to support page reloading, or a client connecting at a later stage, Jupyter kernels must store the state of the debugger (such as breakpoints, whether the debugger is currently stopped). The `debugInfo` request is a DAP `Request` with no extra argument.
+debugInfo
+#########
 
-  Content of the `debugInfo` request::
+In order to support page reloading, or a client connecting at a later stage,
+Jupyter kernels must store the state of the debugger (such as breakpoints,
+whether the debugger is currently stopped). The ``debugInfo`` request is a DAP
+``Request`` with no extra argument.
+
+  Content of the ``debugInfo`` request::
 
       {
           'type' : 'request',
           'command' : 'debugInfo'
       }
 
-  Content of the `debugInfo` response::
+  Content of the ``debugInfo`` response::
 
       {
           'type' : 'response',
@@ -1176,22 +1209,27 @@ In order to support page reloading, or a client connecting at a later stage, Jup
               ],
               'stoppedThreads' : list(int),  # threads in which the debugger is currently in a stopped state
               'richRendering' : bool,  # whether the debugger supports rich rendering of variables
-              'exceptionPaths' : list(str),  # exception names used to match leaves or nodes in a tree of exception 
+              'exceptionPaths' : list(str),  # exception names used to match leaves or nodes in a tree of exception
           }
       }
 
-  The `source_breakpoint` schema is specified by the Debug Adapter Protocol.
+  The ``source_breakpoint`` schema is specified by the Debug Adapter Protocol.
 
-The `inspectVariables` is meant to retrieve the values of all the variables that have been defined in the kernel. It is a DAP `Request` with no extra argument.
+inspectVariables
+################
 
-  Content of the `inspectVariables` request::
+The ``inspectVariables`` is meant to retrieve the values of all the variables
+that have been defined in the kernel. It is a DAP ``Request`` with no extra
+argument.
+
+  Content of the ``inspectVariables`` request::
 
       {
           'type' : 'request',
           'command' : 'inspectVariables'
       }
 
-  Content of the `inspectVariables` response::
+  Content of the ``inspectVariables`` response::
 
       {
           'type' : 'response',
@@ -1208,7 +1246,11 @@ The `inspectVariables` is meant to retrieve the values of all the variables that
           }
       }
 
-The ``richInspectVariables`` request allows to get the rich representation of a variable that has been defined in the kernel.
+richInspectVariables
+####################
+
+The ``richInspectVariables`` request allows to get the rich representation of a
+variable that has been defined in the kernel.
 
   Content of the ``richInspectVariables`` request::
 
@@ -1228,11 +1270,46 @@ The ``richInspectVariables`` request allows to get the rich representation of a 
           'type' : 'response',
           'success' : bool,
           'body' : {
-              # Dictionary of rich reprensentations of the variable
+              # Dictionary of rich representations of the variable
               'data' : dict,
               'metadata' : dict
           }
       }
+
+copyToGlobals
+#############
+
+The ``copyToGlobals`` request allows to copy a variable from the local variable panel
+of the debugger to the ``global`` scope to inspect it after debug session.
+
+  Content of the ``copyToGlobals`` request::
+
+    {
+        'type': 'request',
+        'command': 'copyToGlobals',
+        'arguments': {
+            # the variable to copy from the frame corresponding to `srcFrameId`
+            'srcVariableName': str,
+            'srcFrameId': int,
+            # the copied variable name in the global scope
+            'dstVariableName': str
+        }
+    }
+
+  Content of the ``copyToGlobals`` response::
+
+    {
+        'type': 'response',
+        'success': bool,
+        'command': 'setExpression',
+        'body': {
+            # string representation of the copied variable
+            'value': str,
+            # type of the copied variable
+            'type': str,
+            'variablesReference': int
+        }
+    }
 
 .. versionadded:: 5.5
 
@@ -1518,7 +1595,7 @@ Message type: ``debug_event``::
 
     content = {}
 
-The ``content`` dict follows the specification of the `Event` message from the `Debug Adapter Protocol (DAP) <https://microsoft.github.io/debug-adapter-protocol/>`_.
+The ``content`` dict follows the specification of the ``Event`` message from the `Debug Adapter Protocol (DAP) <https://microsoft.github.io/debug-adapter-protocol/>`_.
 
 .. versionadded:: 5.5
 
@@ -1598,7 +1675,8 @@ Custom Messages
 
 .. versionadded:: 4.1
 
-Message spec 4.1 (IPython 2.0) added a messaging system for developers to add their own objects with Frontend
+Message spec 4.1 (IPython 2.0) added a messaging system for developers to add
+their own objects with Frontend
 and Kernel-side components, and allow them to communicate with each other.
 To do this, IPython adds a notion of a ``Comm``, which exists on both sides,
 and can communicate in either direction.
@@ -1623,7 +1701,8 @@ The code handling the message on the receiving side is responsible for maintaini
 of target_name keys to constructors.
 After a ``comm_open`` message has been sent,
 there should be a corresponding Comm instance on both sides.
-The ``data`` key is always a dict and can be any extra JSON information used in initialization of the comm.
+The ``data`` key is always a dict and can be any extra JSON information used in
+initialization of the comm.
 
 If the ``target_name`` key is not found on the receiving side,
 then it should immediately reply with a ``comm_close`` message to avoid an inconsistent state.
@@ -1635,7 +1714,8 @@ Comm Messages
 Comm messages are one-way communications to update comm state,
 used for synchronizing widget state, or simply requesting actions of a comm's counterpart.
 
-Essentially, each comm pair defines their own message specification implemented inside the ``data`` dict.
+Essentially, each comm pair defines their own message specification implemented
+inside the ``data`` dict.
 
 There are no expected replies (of course, one side can send another ``comm_msg`` in reply).
 
@@ -1667,6 +1747,118 @@ handlers should set the parent header and publish status busy / idle,
 just like an execute request.
 
 
+Changelog
+=========
+
+5.5 (draft)
+-----------
+
+- Added ``debug_request/reply`` messages
+- Added ``debug_event`` message
+
+5.4
+---
+
+- Sending a ``shutdown_request`` message on the ``shell`` channel is deprecated.
+  It should be sent on the control channel.
+
+5.3
+---
+
+- Kernels can now opt to be interrupted by a message sent on the control channel
+  instead of a system signal. See :ref:`kernelspecs` and :ref:`msging_interrupt`.
+
+5.2
+---
+
+- Resolve ambiguity of ``cursor_pos`` field in the presence
+  of unicode surrogate pairs.
+  In 5.2, cursor_pos **must be** the actual encoding-independent offset in unicode codepoints.
+
+  .. seealso::
+
+      :ref:`cursor_pos_unicode_note`
+
+5.1
+---
+
+- ``date`` in the header was accidentally omitted from the spec prior to 5.1,
+  but it has always been in the canonical implementation,
+  so implementers are strongly encouraged to include it.
+  It is mandatory in 5.1.
+- ``status='abort'`` in replies has not proved useful, and is considered deprecated.
+  Kernels should send ``status='error'`` instead.
+- ``comm_info_request/reply`` added
+- ``connect_request/reply`` have not proved useful, and are considered deprecated.
+  Kernels are not expected to implement handlers for this message.
+- new ``transient`` field in ``display_data``
+- new ``update_display_data`` message
+
+5.0
+---
+
+General changes:
+
+- ``version`` key added to message headers
+- busy and idle status messages should be sent before/after handling every request,
+  not just execution
+
+Message renames to remove Python-specific-ness:
+
+- ``pyin`` message renamed to ``execute_input``
+- ``pyerr`` renamed to ``error``
+- ``object_info_request/reply`` messages renamed to ``inspect_request/reply``
+
+Kernel info:
+
+- versions changed from lists of integers to strings
+- ``ipython_version`` is removed
+- ``language_info``, ``implementation``, ``implementation_version``, ``banner``
+    and ``help_links`` keys are added.
+- ``language_version`` is moved to ``language_info.version``
+- ``language`` is moved to ``language_info.name``
+
+Execution:
+
+- ``user_variables`` is removed from ``execute_request/reply`` because it is
+  redundant with ``user_expressions``
+- ``password`` key added to ``input_request``
+
+Output:
+
+- ``data`` key in stream messages renamed to ``text`` for consistency with the
+  notebook format.
+- ``application/json`` in mimebundles should be unpacked JSON data,
+  not a double-serialized JSON string.
+
+Inspection:
+
+- ``name`` key in ``inspect_request`` replaced with ``code`` and ``cursor_pos``,
+  moving the lexing responsibility to the kernel.
+- ``object_info_reply`` is now a mimebundle,
+  allowing formatting decisions to be made by the kernel.
+
+Completion:
+
+- ``complete_request``: ``line``, ``block``, and ``text`` keys are removed in
+    favor of a single ``code`` for context.
+    Lexing is up to the kernel.
+- ``complete_reply``:
+    - ``matched_text`` is removed in favor of ``cursor_start`` and ``cursor_end``.
+    - ``metadata`` is added for extended information.
+- new ``is_complete_request`` and ``is_complete_reply`` messages
+
+4.1
+---
+
+- ``comm_open/close/msg`` messages added
+- ``clear_output``: ``stdout``, ``stderr``, and ``display`` boolean keys for
+  selective clearing are removed,
+  and ``wait`` is added.
+  The selective clearing keys are ignored in v4 and the default behavior remains the same,
+  so v4 ``clear_output`` messages will be safely handled by a v4.1 frontend.
+
+
 Notes
 =====
 
@@ -1677,7 +1869,8 @@ Notes
 
 Many frontends, especially those implemented in javascript,
 reported cursor_pos as the interpreter's string index,
-which is not the same as the unicode character offset if the interpreter uses UTF-16 (e.g. javascript or Python 2 on macOS),
+which is not the same as the unicode character offset if the interpreter uses
+UTF-16 (e.g. javascript or Python 2 on macOS),
 which stores "astral-plane" characters such as ``𝐚 (U+1D41A)`` as surrogate pairs,
 taking up two indices instead of one, causing a unicode offset
 drift of one per astral-plane character.
@@ -1689,11 +1882,16 @@ for frontends that did the right thing.
 
 For this reason, in protocol versions prior to 5.2, ``cursor_pos``
 is officially ambiguous in the presence of astral plane unicode characters.
-Frontends claiming to implement protocol 5.2 **MUST** identify cursor_pos as the encoding-independent unicode character offset.
-Kernels may choose to expect the UTF-16 offset from requests implementing protocol 5.1 and earlier, in order to behave correctly with the most popular frontends.
-But they should know that doing so *introduces* the inverse bug for the frontends that do not have this bug.
+Frontends claiming to implement protocol 5.2 **MUST** identify cursor_pos as
+the encoding-independent unicode character offset.
+Kernels may choose to expect the UTF-16 offset from requests implementing
+protocol 5.1 and earlier, in order to behave correctly with the most popular
+frontends.
+But they should know that doing so *introduces* the inverse bug for the
+frontends that do not have this bug.
 
-As an example, use a python3 kernel and evaluate ``𨭎𨭎𨭎𨭎𨭎 = 10``.  Then type ``𨭎𨭎`` followed by the tab key and see if it properly completes.
+As an example, use a python3 kernel and evaluate ``𨭎𨭎𨭎𨭎𨭎 = 10``.  Then type
+``𨭎𨭎`` followed by the tab key and see if it properly completes.
 
 Known affected frontends (as of 2017-06):
 

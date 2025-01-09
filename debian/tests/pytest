@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+cp -a debian/run_tests pyproject.toml jupyter_client tests "$AUTOPKGTEST_TMP"
+cd "$AUTOPKGTEST_TMP"
+
+export JUPYTER_PLATFORM_DIRS=1
+jupyter --paths
+
+for py in $(py3versions -s)
+do
+    echo "Testing with $py:"
+    ./run_tests $py -m pytest -v
+done

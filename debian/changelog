@@ -1,3 +1,142 @@
+jupyter-client (8.6.3-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream version 8.6.3 that fixes a DeprecationWarning
+    with Python 3.13 that hinders nbclient update.
+  * Remove psutil patch applied upstream
+
+ -- Alexandre Detiste <tchet@debian.org>  Mon, 18 Nov 2024 15:33:47 +0100
+
+jupyter-client (8.6.2-3) unstable; urgency=medium
+
+  * Team upload
+  * Suggest -doc package in python3- package, and vice versa
+  * Use psutil for determining network interfaces and addresses
+  * Autopkgtest needs to depend on net-tools for /sbin/ifconfig on Ubuntu
+    (closes: #1078713)
+
+ -- Julian Gilbey <jdg@debian.org>  Thu, 15 Aug 2024 21:50:16 +0100
+
+jupyter-client (8.6.2-2) unstable; urgency=medium
+
+  * Team upload
+  * Improve watchfile so downloaded source has sensible filename
+
+ -- Julian Gilbey <jdg@debian.org>  Sun, 04 Aug 2024 12:39:12 +0100
+
+jupyter-client (8.6.2-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream version 8.6.2
+
+  [ Gordon Ball ]
+  * Dependencies:
+    + drop python3-nest-asyncio (no longer required)
+    + drop python3-sphinx-rtd-theme (docs)
+    + add python3-sphinx-autodoc-typehints, python3-pydata-sphinx-theme (docs)
+
+  [ Matthias Klose ]
+  * Disable the intersphinx extension for the build, accesses the network
+    for the build.
+
+  [ Julien Puydt ]
+  * Drop dep on entrypoints.
+  * Fix build sources after successful build (Closes: #1045762).
+
+  [ Julian Gilbey ]
+  * Depend on pytest-jupyter for tests
+  * Update autopkgtest script to work with newer jupyter-core, and use
+    Spyder-based mechanism for running tests multiple times if needed
+  * Use sphinxcontrib-github-alt for documentation build (now packaged)
+  * Move documentation to /usr/share/doc/python3-jupyter-client
+  * Use local intersphinx to map to ipython docs
+
+ -- Julian Gilbey <jdg@debian.org>  Sun, 04 Aug 2024 12:39:00 +0100
+
+jupyter-client (7.4.9-2) unstable; urgency=medium
+
+  * Team upload.
+  * Add missing build-dependency (python3-dateutil)
+
+ -- Julian Gilbey <jdg@debian.org>  Sun, 15 Jan 2023 21:44:40 +0000
+
+jupyter-client (7.4.9-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+  * Refresh patches.
+  * Autopkgtest tests with all python versions (closes: #1012493)
+  * Update d/copyright file
+  * Remove autopkgtest-pkg-python testsuite (it only runs superficial
+    tests)
+  * Use dh-sequence-* in build-depends
+  * Fix some lintian warnings
+
+ -- Julian Gilbey <jdg@debian.org>  Sun, 15 Jan 2023 10:54:16 +0000
+
+jupyter-client (7.3.4-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Refresh patches.
+  * Add missing build-depends.
+
+ -- Julien Puydt <jpuydt@debian.org>  Thu, 09 Jun 2022 17:34:55 +0200
+
+jupyter-client (7.3.1-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Refresh patches.
+  * Bump standards-version to 4.6.1.
+
+ -- Julien Puydt <jpuydt@debian.org>  Sat, 14 May 2022 10:36:54 +0200
+
+jupyter-client (7.3.0-3) unstable; urgency=medium
+
+  * Add version dependency on python3-pytest-asyncio also in
+  d/tests/control (Closes: #1010822).
+  * Add a patch to avoid a pytest warning turning into an error.
+  * Add a dep on python3-pytest-timeout.
+
+ -- Julien Puydt <jpuydt@debian.org>  Wed, 11 May 2022 18:19:33 +0200
+
+jupyter-client (7.3.0-2) unstable; urgency=medium
+
+  * Add version dependency on python3-pytest-asyncio, because CI
+  fails.
+
+ -- Julien Puydt <jpuydt@debian.org>  Wed, 04 May 2022 14:00:01 +0200
+
+jupyter-client (7.3.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Update b-deps.
+  * Checked dask.distributed builds with this (Closes: #1000271).
+
+ -- Julien Puydt <jpuydt@debian.org>  Sun, 01 May 2022 22:39:14 +0200
+
+jupyter-client (7.1.2-1) unstable; urgency=medium
+
+  * New upstream version 7.1.2
+
+ -- Gordon Ball <gordon@chronitis.net>  Tue, 25 Jan 2022 08:55:03 +0000
+
+jupyter-client (7.1.1-1) unstable; urgency=medium
+
+  * New upstream version 7.1.1
+
+ -- Gordon Ball <gordon@chronitis.net>  Mon, 17 Jan 2022 16:38:04 +0000
+
+jupyter-client (7.1.0-1) unstable; urgency=medium
+
+  [ Gordon Ball ]
+  * New upstream version 7.1.0
+
+  [ Julien Puydt ]
+  * Uploading, since it seems to give different results with
+  dask.distributed.
+
+ -- Julien Puydt <jpuydt@debian.org>  Thu, 02 Dec 2021 08:17:25 +0100
+
 jupyter-client (7.0.6-2) unstable; urgency=medium
 
   * Add breaks against ipykernel < 6, nbconvert < 6, jupyter-console < 6.4.0-3

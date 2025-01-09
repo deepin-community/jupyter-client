@@ -24,12 +24,13 @@ with Jupyter kernels.
    kernels
    wrapperkernels
    provisioning
+   pending-kernels
 
 .. toctree::
    :maxdepth: 2
    :caption: API
 
-   api/index
+   API Docs <api/modules>
 
 .. toctree::
     :maxdepth: 2

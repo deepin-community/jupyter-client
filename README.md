@@ -1,15 +1,13 @@
 # Jupyter Client
 
 [![Build Status](https://github.com/jupyter/jupyter_client/workflows/CI/badge.svg)](https://github.com/jupyter/jupyter_client/actions)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Documentation Status](https://readthedocs.org/projects/jupyter-client/badge/?version=latest)](http://jupyter-client.readthedocs.io/en/latest/?badge=latest)
 
-`jupyter_client` contains the reference implementation of the [Jupyter protocol][].
+`jupyter_client` contains the reference implementation of the [Jupyter protocol].
 It also provides client and kernel management APIs for working with kernels.
 
 It also provides the `jupyter kernelspec` entrypoint
 for installing kernelspecs for use with Jupyter frontends.
-
-[jupyter protocol]: https://jupyter-client.readthedocs.io/en/latest/messaging.html
 
 ## Development Setup
 
@@ -29,7 +27,7 @@ and download the dependencies of code and test suite by executing:
 
 ```bash
 cd /my/projects/jupyter_client/
-pip install -e .[test]
+pip install -e ".[test]"
 pytest
 ```
 
@@ -41,7 +39,7 @@ The documentation of Jupyter Client is generated from the files in `docs/` using
 For a minimal Sphinx installation to process the Jupyter Client docs, execute:
 
 ```bash
-pip install .[doc]
+pip install ".[doc]"
 ```
 
 The following commands build the documentation in HTML format and check for broken links:
@@ -57,7 +55,7 @@ _file:///my/projects/jupyter_client/docs/\_build/html/index.html_
 
 ## Contributing
 
-jupyter-client has adopted automatic code formatting so you shouldn't
+`jupyter-client` has adopted automatic code formatting so you shouldn't
 need to worry too much about your code style.
 As long as your code is valid,
 the pre-commit hook should take care of how it should look.
@@ -76,3 +74,36 @@ If you have already committed files before setting up the pre-commit
 hook with `pre-commit install`, you can fix everything up using
 `pre-commit run --all-files`. You need to make the fixing commit
 yourself after that.
+
+Some of the hooks only run on CI by default, but you can invoke them by
+running with the `--hook-stage manual` argument.
+
+## About the Jupyter Development Team
+
+The Jupyter Development Team is the set of all contributors to the Jupyter project.
+This includes all of the Jupyter subprojects.
+
+The core team that coordinates development on GitHub can be found here:
+https://github.com/jupyter/.
+
+## Our Copyright Policy
+
+Jupyter uses a shared copyright model. Each contributor maintains copyright
+over their contributions to Jupyter. But, it is important to note that these
+contributions are typically only changes to the repositories. Thus, the Jupyter
+source code, in its entirety is not the copyright of any single person or
+institution. Instead, it is the collective copyright of the entire Jupyter
+Development Team. If individual contributors want to maintain a record of what
+changes/contributions they have specific copyright on, they should indicate
+their copyright in the commit message of the change, when they commit the
+change to one of the Jupyter repositories.
+
+With this in mind, the following banner should be used in any source code file
+to indicate the copyright and license terms:
+
+```
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+```
+
+[jupyter protocol]: https://jupyter-client.readthedocs.io/en/latest/messaging.html
