@@ -1,3 +1,14 @@
-Test-Command: env HOME=$AUTOPKGTEST_TMP pytest-3 jupyter_client
-Depends: @, python3-pytest, python3-pytest-asyncio, python3-mock, python3-ipykernel (>= 6), python3-ipython, python3-sphinx
+Tests: pytest
+Depends: jupyter-core,
+         net-tools,
+         python3-all,
+         python3-ipykernel (>= 6),
+         python3-ipython,
+         python3-mock,
+         python3-pytest,
+         python3-pytest-asyncio (>= 0.18.0),
+         python3-pytest-jupyter,
+         python3-pytest-timeout,
+         python3-sphinx,
+         @
 Restrictions: allow-stderr

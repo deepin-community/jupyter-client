@@ -2,12 +2,14 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: jupyter_client
 
 Files: *
-Copyright: 2001-2018, Jupyter Development Team
+Copyright: 2001-2015, IPython Development Team
+  2015-, Jupyter Development Team
 License: BSD-3-clause
 
 Files: debian/*
-Copyright: 2015-2018 Julien Puydt <jpuydt@debian.org>
-           2017-2018 Gordon Ball
+Copyright: 2015-2022 Julien Puydt <jpuydt@debian.org>
+           2017-2022 Gordon Ball
+	   2023 Julian Gilbey <jdg@debian.org>
 License: BSD-3-clause
 
 License: BSD-3-clause

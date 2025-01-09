@@ -1,0 +1,16 @@
+Description: Use local ipython documentation for intersphinx
+Forwarded: not-needed
+Author: Julian Gilbey <jdg@debian.org>
+Last-Update: 2024-07-29
+
+--- a/docs/conf.py
++++ b/docs/conf.py
+@@ -326,7 +326,7 @@
+ 
+ 
+ # Example configuration for intersphinx: refer to the Python standard library.
+-intersphinx_mapping = {"ipython": ("https://ipython.readthedocs.io/en/stable/", None)}
++intersphinx_mapping = {"ipython": ("file:///usr/share/doc/python-ipython-doc/html/", None)}
+ 
+ 
+ def setup(app: object) -> None:

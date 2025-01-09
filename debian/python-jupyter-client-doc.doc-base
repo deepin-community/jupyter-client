@@ -5,5 +5,5 @@ Abstract: Sphinx documentation for Jupyter Client
 Section: Programming/Python
 
 Format: HTML
-Index: /usr/share/doc/python-jupyter-client-doc/html/index.html
-Files: /usr/share/doc/python-jupyter-client-doc/html/*
+Index: /usr/share/doc/python3-jupyter-client/html/index.html
+Files: /usr/share/doc/python3-jupyter-client/html/*

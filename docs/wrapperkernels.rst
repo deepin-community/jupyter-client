@@ -1,7 +1,7 @@
 Making simple Python wrapper kernels
 ====================================
 
-You can re-use IPython's kernel machinery to easily make new kernels.
+You can reuse IPython's kernel machinery to easily make new kernels.
 This is useful for languages that have Python bindings, such as `Hy
 <https://github.com/hylang/hy/>`_ (see
 `Calysto Hy <https://github.com/Calysto/calysto_hy/#>`_), or languages
@@ -14,9 +14,12 @@ such as bash.
      A simple kernel for bash, written using this machinery
 
 The `Metakernel <https://github.com/Calysto/metakernel/#>`_ library makes it easier to
-write a wrapper kernel that includes a base set of line and cell magics.  It also has a ``ProcessKernel`` subclass that makes it easy to write kernels that use ``pexpect``.
+write a wrapper kernel that includes a base set of line and cell magics.  It
+also has a ``ProcessKernel`` subclass that makes it easy to write kernels that
+use ``pexpect``.
 See `Octave Kernel <https://github.com/Calysto/octave_kernel>`_ as an example.
 
+If releasing a wrapper kernel as a Python package, see the steps in :ref:`packaging-kernels`.
 
 Required steps
 --------------
@@ -84,7 +87,7 @@ Example
 
 .. seealso::
 
-    `echo_kernel <https://github.com/jupyter/echo_kernel>`__
+    `echo_kernel <https://github.com/jupyter/echo_kernel>`_
       A packaged, installable version of the condensed example below.
 
 ``echokernel.py`` will simply echo any input it's given to stdout::
@@ -134,7 +137,7 @@ You can override a number of other methods to improve the functionality of your
 kernel. All of these methods should return a dictionary as described in the
 relevant section of the :doc:`messaging spec <messaging>`.
 
-.. class:: MyKernel
+.. class:: MyCustomKernel
 
    .. method:: do_complete(code, cursor_pos)
 

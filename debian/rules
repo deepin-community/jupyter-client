@@ -4,16 +4,16 @@
 export LC_ALL=C.UTF-8
 
 %:
-	dh $@ --with python3,sphinxdoc --buildsystem=pybuild
+	dh $@ --with=sphinxdoc --buildsystem=pybuild
 
 override_dh_auto_test:
 	@echo "Tests disabled to avoid circular dependencies"
 
-override_dh_sphinxdoc:
-ifeq (,$(findstring nodocs, $(DEB_BUILD_OPTIONS)))
-	PYTHONPATH=. python3 -m sphinx -b html docs debian/python-jupyter-client-doc/usr/share/doc/python-jupyter-client-doc/html
-	dh_sphinxdoc -O--buildsystem=pybuild
-endif
+ifeq (,$(findstring nodoc, $(DEB_BUILD_OPTIONS)))
+execute_after_dh_auto_build:
+	PYTHONPATH=$$(pwd) make -C docs html
 
-override_dh_installchangelogs:
-	dh_installchangelogs -k CHANGELOG.md
+override_dh_installdocs:
+	dh_installdocs -ppython-jupyter-client-doc --doc-main-package=python3-jupyter-client
+	dh_installdocs --remaining-packages
+endif
